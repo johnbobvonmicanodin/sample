@@ -15,7 +15,7 @@ public class SampleController {
     @Autowired
     public SampleService sampleService;
 
-    @PostMapping("/creata")
+    @PostMapping("/create")
     @ResponseBody
     public SampleDto createNewSample(@RequestBody NewSampleDto newSampleDto){
         Sample sample = sampleService.createNewSample(newSampleDto.data);
