@@ -1,14 +1,14 @@
 package org.cnam.sample.dto;
 
-public class NewSampleDto {
+public class NewFactureDto {
 
     public String data;
 
-    public NewSampleDto(){
+    public NewFactureDto(){
 
     }
 
-    public NewSampleDto(String data){
+    public NewFactureDto(String data){
         this.data = data;
     }
 }

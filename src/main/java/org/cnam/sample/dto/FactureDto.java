@@ -1,16 +1,16 @@
 package org.cnam.sample.dto;
 
-public class SampleDto {
+public class FactureDto {
 
     public long id;
 
     public String data;
 
-    public SampleDto(){
+    public FactureDto(){
 
     }
 
-    public SampleDto(long id, String data){
+    public FactureDto(long id, String data){
         this.id = id;
         this.data = data;
     }

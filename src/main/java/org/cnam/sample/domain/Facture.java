@@ -1,16 +1,16 @@
 package org.cnam.sample.domain;
 
-public class Sample {
+public class Facture {
 
     public long id;
 
     public String data;
 
-    public Sample(){
+    public Facture(){
 
     }
 
-    public Sample(long id, String data){
+    public Facture(long id, String data){
         this.id = id;
         this.data = data;
     }

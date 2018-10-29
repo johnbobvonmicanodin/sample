@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "sample")
-public class SampleModel {
+public class FactureModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +15,7 @@ public class SampleModel {
     @Column(name = "data")
     private  String data;
 
-    public SampleModel(){
+    public FactureModel(){
 
     }
 
@@ -35,7 +35,7 @@ public class SampleModel {
         this.data = data;
     }
 
-    public SampleModel(String data){
+    public FactureModel(String data){
         this.data = data;
     }
 }
