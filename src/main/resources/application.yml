@@ -9,21 +9,21 @@ spring:
     password:
     driverClassName: org.h2.Driver
 
-jpa:
-  database-platform: org.hibernate.dialect.H2Dialect
-  hibernate:
-    ddl-auto: create
-  properties:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      show_sql: true
-      use_sql_comments: true
-      format_sql: true
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
 
-h2:
-  console:
-    enabled: true
-    path: /console
-    settings:
-      trace: false
-      web-allow-others: false
+  h2:
+    console:
+      enabled: true
+      path: /console
+      settings:
+        trace: false
+        web-allow-others: false
 
