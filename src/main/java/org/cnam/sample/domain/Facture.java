@@ -1,18 +1,26 @@
 package org.cnam.sample.domain;
 
+import java.sql.Date;
+
 public class Facture {
 
-    public long id;
+    private Long id;
 
-    public String data;
+    private  Long id_client;
+
+    private String libelle_frais;
+
+    private double montant;
+
+    private Date date;
 
     public Facture(){
 
     }
 
-    public Facture(long id, String data){
+    /*public Facture(long id, String data){
         this.id = id;
         this.data = data;
-    }
+    }*/
 }
 

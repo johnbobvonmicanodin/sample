@@ -27,3 +27,8 @@ spring:
         trace: false
         web-allow-others: false
 
+application:
+  facture:
+    url: http://localhost:8085
+    feature:
+      create: /facture/create

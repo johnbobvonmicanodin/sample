@@ -1,10 +1,11 @@
 package org.cnam.sample.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 
 @Entity
-@Table(name = "sample")
+@Table(name = "facture")
 public class FactureModel {
 
     @Id
@@ -12,8 +13,17 @@ public class FactureModel {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "data")
-    private  String data;
+    @Column(name = "id_client")
+    private  Long id_client;
+
+    @Column(name = "libelle_frais")
+    private String libelle_frais;
+
+    @Column(name = "montant")
+    private double montant;
+
+    @Column(name = "date")
+    private Date date;
 
     public FactureModel(){
 
@@ -27,15 +37,12 @@ public class FactureModel {
         this.id = id;
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
+    //Constructeur avec paramètres
+    /**public FactureModel(String data){
         this.data = data;
     }
 
-    public FactureModel(String data){
-        this.data = data;
-    }
+    //public String getData(){
+        return "Hello";
+    }*/
 }

@@ -18,9 +18,10 @@ public class FactureController {
     @PostMapping("/create")
     @ResponseBody
     public FactureDto createNewSample(@RequestBody NewFactureDto newFactureDto){
-        Facture facture = factureService.createNewSample(newFactureDto.data);
+        //Facture facture = factureService.createNewSample(newFactureDto.data);
 
-        return new FactureDto(facture.id, facture.data);
+        //return new FactureDto(facture.id, facture.data);
+        return new FactureDto();
     }
 
     @GetMapping("/get/{id}")
@@ -30,7 +31,8 @@ public class FactureController {
 
         Facture facture = factureService.getSample(id);
 
-        return new FactureDto(facture.id, facture.data);
+        //return new FactureDto(facture.id, facture.data);
+        return new FactureDto();
     }
 
 }
