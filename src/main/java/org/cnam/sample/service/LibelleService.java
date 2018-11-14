@@ -3,9 +3,9 @@ package org.cnam.sample.service;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonService {
+public class LibelleService {
 
-    /**public List<Person> savePerson(final Person person){
+    /**public List<Libelle> savePerson(final Libelle person){
 
     }*/
 }
