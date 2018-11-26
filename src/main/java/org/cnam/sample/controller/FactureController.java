@@ -29,7 +29,7 @@ public class FactureController {
     public FactureDto getSample(@PathVariable Long id){
         FactureDto factureDto = new FactureDto();
 
-        Facture facture = factureService.getSample(id);
+        Facture facture = factureService.getFacture(id);
 
         //return new FactureDto(facture.id, facture.data);
         return new FactureDto();

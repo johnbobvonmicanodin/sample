@@ -19,7 +19,7 @@ public class FactureService {
     @Value("^$(application.facture.url)")
     private String clientApplicationURL;
 
-    public Facture createNewSample(String data){
+    public Facture createNewFacture(String data){
 
         FactureModel factureModel = new FactureModel();
         FactureModel factureModelSaved = factureRepository.save(factureModel);
@@ -31,7 +31,7 @@ public class FactureService {
         return new Facture();
     }
 
-    public Facture getSample(long id){
+    public Facture getFacture(long id){
 
         FactureModel factureModelFound = factureRepository.getOne(id);
 
@@ -40,7 +40,7 @@ public class FactureService {
         return new Facture();
     }
 
-    public Facture createNewSampleExternal(String data){
+    public Facture createNewFactureExternal(String data){
         RestTemplate restTemplate = new RestTemplate();
         NewFactureDto facture = new NewFactureDto();
         //FactureDto myFacture = restTemplate.postForObject(clientApplicationURL + "something");
@@ -52,4 +52,12 @@ public class FactureService {
 
         return facture1;
     }
+
+    //Connexion api exemple
+    /*public void envoiIdNewCompte(){
+        final RestTemplate restTemplate = new RestTemplate();
+        final String result1 = restTemplate.getForObject( url: "", String.class);
+        final SampleRequest sampleRequest = new SampleRequest(id: 42, data: "");
+        final String result2 = restTemplate.postForObject( url: "", sampleRequest, String.class);
+    }*/
 }

@@ -27,5 +27,19 @@ public class LibelleModel {
 
     }
 
+    public Long getId_libelle() {
+        return id_libelle;
+    }
 
+    public String getLibelle_frais() {
+        return libelle_frais;
+    }
+
+    public double getMontant_fixe() {
+        return montant_fixe;
+    }
+
+    public double getMontant_pourcentage() {
+        return montant_pourcentage;
+    }
 }

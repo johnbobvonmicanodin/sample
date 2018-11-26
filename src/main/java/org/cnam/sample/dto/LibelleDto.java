@@ -1,6 +1,10 @@
-package org.cnam.sample.domain;
+package org.cnam.sample.dto;
 
-public class Libelle {
+import org.cnam.sample.domain.Libelle;
+
+import java.sql.Date;
+
+public class LibelleDto {
 
     private Long id_libelle;
 
@@ -10,14 +14,17 @@ public class Libelle {
 
     private double montant_pourcentage;
 
-    public Libelle(){
+
+    public LibelleDto(){
 
     }
 
-    public Libelle(long id_libelle, final String libelle_frais, double montant_fixe, double montant_pourcentage){
+    public LibelleDto(long id_libelle, String libelle_frais, double montant_fixe, double montant_pourcentage){
         this.id_libelle = id_libelle;
         this.libelle_frais = libelle_frais;
         this.montant_fixe = montant_fixe;
         this.montant_pourcentage = montant_pourcentage;
     }
+
+
 }
