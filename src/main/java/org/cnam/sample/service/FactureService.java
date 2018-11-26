@@ -10,25 +10,29 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.sql.Date;
+
 @Service
 public class FactureService {
 
     @Autowired
     FactureRepository factureRepository;
 
-    @Value("^$(application.facture.url)")
-    private String clientApplicationURL;
+    @Value("^$(application.courrier.url)")
+    private String courrierApplicationURL;
 
-    public Facture createNewFacture(String data){
+    //creer courrier
+    @Value("^$(application.courrier.feature.create)")
+    private String creationCourrier;
 
-        FactureModel factureModel = new FactureModel();
+    public Facture createNewFacture(long id_client, String libelle_frais, double montant, Date date){
+
+        FactureModel factureModel = new FactureModel(id_client, libelle_frais, montant, date);
         FactureModel factureModelSaved = factureRepository.save(factureModel);
 
-        //return new Facture(factureModelSaved.getId(), factureModelSaved.getData());
-
-        //return new Facture(15102018L, data);
-
-        return new Facture();
+        return new Facture(factureModelSaved.getId(), factureModelSaved.getId_client(),
+                            factureModelSaved.getLibelle_frais(), factureModelSaved.getMontant(),
+                            factureModelSaved.getDate());
     }
 
     public Facture getFacture(long id){
@@ -54,10 +58,13 @@ public class FactureService {
     }
 
     //Connexion api exemple
-    /*public void envoiIdNewCompte(){
+    public void envoiCourrierFacture(){
         final RestTemplate restTemplate = new RestTemplate();
-        final String result1 = restTemplate.getForObject( url: "", String.class);
-        final SampleRequest sampleRequest = new SampleRequest(id: 42, data: "");
-        final String result2 = restTemplate.postForObject( url: "", sampleRequest, String.class);
-    }*/
+        //final String result1 = restTemplate.getForObject( url: courrierApplicationURL+ , String.class);
+
+        //A voir les params courrier
+        //final SampleRequest sampleRequest = new SampleRequest();
+
+        //final String result2 = restTemplate.postForObject(courrierApplicationURL+creationCourrier, sampleRequest, String.class);
+    }
 }

@@ -29,11 +29,20 @@ public class FactureModel {
 
     }
 
-    //Constructeur avec paramètres
-    /**public FactureModel(String data){
-        this.data = data;
+    public FactureModel(long id_client, String libelle_frais, double montant, Date date){
+        this.id_client = id_client;
+        this.libelle_frais = libelle_frais;
+        this.montant = montant;
+        this.date = date;
     }
-     */
+
+    public FactureModel(long id, long id_client, String libelle_frais, double montant, Date date){
+        this.id = id;
+        this.id_client = id_client;
+        this.libelle_frais = libelle_frais;
+        this.montant = montant;
+        this.date = date;
+    }
 
     public Long getId() {
         return id;

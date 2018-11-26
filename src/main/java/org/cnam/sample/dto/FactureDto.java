@@ -1,18 +1,20 @@
 package org.cnam.sample.dto;
+import org.cnam.sample.domain.Facture;
+
 import java.sql.Date;
 
 
 public class FactureDto {
 
-    private Long id;
+    public Long id;
 
-    private  Long id_client;
+    public  Long id_client;
 
-    private String libelle_frais;
+    public String libelle_frais;
 
-    private double montant;
+    public double montant;
 
-    private Date date;
+    public Date date;
 
     public FactureDto(){
 
@@ -24,5 +26,13 @@ public class FactureDto {
         this.libelle_frais = libelle_frais;
         this.montant = montant;
         this.date = date;
+    }
+
+    public FactureDto(Facture facture){
+        this.id = facture.getId();
+        this.id_client = facture.getId_client();
+        this.date = facture.getDate();
+        this.libelle_frais = facture.getLibelle_frais();
+        this.montant = facture.getMontant();
     }
 }

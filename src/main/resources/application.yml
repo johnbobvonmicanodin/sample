@@ -28,7 +28,7 @@ spring:
         web-allow-others: false
 
 application:
-  facture:
-    url: http://localhost:8085
+  courrier:
+    url: http://172.154.21.25:8085
     feature:
-      create: /facture/create
+      create: /courrier/create

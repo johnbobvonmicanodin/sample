@@ -4,19 +4,23 @@ import java.sql.Date;
 
 public class NewFactureDto {
 
-    private  Long id_client;
+    public  Long id_client;
 
-    private String libelle_frais;
+    public String libelle_frais;
 
-    private double montant;
+    public double montant;
 
-    private Date date;
+    public Date date;
 
     public NewFactureDto(){
 
     }
 
-    /**public NewFactureDto(String data){
-        this.data = data;
-    }*/
+    public NewFactureDto(long id_client, String libelle_frais, double montant, Date date){
+        //this.id = id;
+        this.id_client = id_client;
+        this.libelle_frais = libelle_frais;
+        this.montant = montant;
+        this.date = date;
+    }
 }

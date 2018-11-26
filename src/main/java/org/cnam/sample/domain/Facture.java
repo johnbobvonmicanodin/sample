@@ -18,9 +18,32 @@ public class Facture {
 
     }
 
-    /*public Facture(long id, String data){
+    public Facture(long id, long id_client, String libelle_frais, double montant, Date date){
         this.id = id;
-        this.data = data;
-    }*/
+        this.id_client = id_client;
+        this.libelle_frais = libelle_frais;
+        this.montant = montant;
+        this.date = date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getId_client() {
+        return id_client;
+    }
+
+    public String getLibelle_frais() {
+        return libelle_frais;
+    }
+
+    public double getMontant() {
+        return montant;
+    }
+
+    public Date getDate() {
+        return date;
+    }
 }
 

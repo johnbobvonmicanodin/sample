@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/sample")
+@RequestMapping("/facture")
 public class FactureController {
 
     @Autowired
@@ -17,22 +17,26 @@ public class FactureController {
 
     @PostMapping("/create")
     @ResponseBody
-    public FactureDto createNewSample(@RequestBody NewFactureDto newFactureDto){
-        //Facture facture = factureService.createNewSample(newFactureDto.data);
+    public FactureDto createNewFacture(@RequestBody NewFactureDto newFactureDto){
 
-        //return new FactureDto(facture.id, facture.data);
-        return new FactureDto();
+
+        System.out.println("Hello world");
+        System.out.println(newFactureDto.id_client);
+
+        Facture facture = factureService.createNewFacture(newFactureDto.id_client, newFactureDto.libelle_frais, newFactureDto.montant, newFactureDto.date);
+
+        return new FactureDto(facture);
     }
 
     @GetMapping("/get/{id}")
     @ResponseBody
-    public FactureDto getSample(@PathVariable Long id){
+    public FactureDto getFacture(@PathVariable Long id){
         FactureDto factureDto = new FactureDto();
 
         Facture facture = factureService.getFacture(id);
 
         //return new FactureDto(facture.id, facture.data);
-        return new FactureDto();
+        return new FactureDto(facture);
     }
 
 }
