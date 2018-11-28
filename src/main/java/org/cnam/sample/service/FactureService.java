@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.rmi.server.UID;
 import java.sql.Date;
+import java.util.UUID;
 
 @Service
 public class FactureService {
@@ -25,15 +27,15 @@ public class FactureService {
     @Value("^$(application.courrier.feature.create)")
     private String creationCourrier;
 
-    public Facture createNewFacture(long id_client, String libelle_frais, double montant, Date date){
+    public Facture createNewFacture(UUID id_client, String libelle_frais, double montant, Date date){
 
         FactureModel factureModel = new FactureModel(id_client, libelle_frais, montant, date);
         FactureModel factureModelSaved = factureRepository.save(factureModel);
 
         return new Facture(factureModelSaved.getId(), factureModelSaved.getId_client(),
-                            factureModelSaved.getLibelle_frais(), factureModelSaved.getMontant(),
-                            factureModelSaved.getDate());
-    }
+            factureModelSaved.getLibelle_frais(), factureModelSaved.getMontant(),
+            factureModelSaved.getDate());
+}
 
     public Facture getFacture(long id){
 

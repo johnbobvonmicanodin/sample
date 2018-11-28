@@ -2,6 +2,7 @@ package org.cnam.sample.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.UUID;
 
 
 @Entity
@@ -14,7 +15,7 @@ public class FactureModel {
     private Long id;
 
     @Column(name = "id_client")
-    private  Long id_client;
+    private UUID id_client;
 
     @Column(name = "libelle_frais")
     private String libelle_frais;
@@ -29,14 +30,14 @@ public class FactureModel {
 
     }
 
-    public FactureModel(long id_client, String libelle_frais, double montant, Date date){
+    public FactureModel(UUID id_client, String libelle_frais, double montant, Date date){
         this.id_client = id_client;
         this.libelle_frais = libelle_frais;
         this.montant = montant;
         this.date = date;
     }
 
-    public FactureModel(long id, long id_client, String libelle_frais, double montant, Date date){
+    public FactureModel(long id, UUID id_client, String libelle_frais, double montant, Date date){
         this.id = id;
         this.id_client = id_client;
         this.libelle_frais = libelle_frais;
@@ -48,11 +49,11 @@ public class FactureModel {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getId_client() {
+    public UUID getId_client() {
         return id_client;
     }
 

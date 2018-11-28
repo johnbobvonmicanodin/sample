@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/facture")
 public class FactureController {
@@ -22,6 +24,8 @@ public class FactureController {
 
         System.out.println("Hello world");
         System.out.println(newFactureDto.id_client);
+
+        //UUID uuid = UUID.fromString(newFactureDto.id_client);
 
         Facture facture = factureService.createNewFacture(newFactureDto.id_client, newFactureDto.libelle_frais, newFactureDto.montant, newFactureDto.date);
 

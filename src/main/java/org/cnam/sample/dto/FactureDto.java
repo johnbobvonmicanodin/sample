@@ -2,13 +2,14 @@ package org.cnam.sample.dto;
 import org.cnam.sample.domain.Facture;
 
 import java.sql.Date;
+import java.util.UUID;
 
 
 public class FactureDto {
 
     public Long id;
 
-    public  Long id_client;
+    public UUID id_client;
 
     public String libelle_frais;
 
@@ -20,7 +21,7 @@ public class FactureDto {
 
     }
 
-    public FactureDto(long id, long id_client, String libelle_frais, double montant, Date date){
+    public FactureDto(long id, UUID id_client, String libelle_frais, double montant, Date date){
         this.id = id;
         this.id_client = id_client;
         this.libelle_frais = libelle_frais;
