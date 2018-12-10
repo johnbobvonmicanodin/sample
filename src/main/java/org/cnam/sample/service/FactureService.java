@@ -21,17 +21,17 @@ public class FactureService {
     @Autowired
     FactureRepository factureRepository;
 
-    @Value("^$(application.courrier.url)")
+    @Value("${application.courrier.url}")
     private String courrierApplicationURL;
 
     //creer courrier
-    @Value("^$(application.courrier.feature.create)")
+    @Value("${application.courrier.feature.create}")
     private String creationCourrier;
 
-    @Value("^$(application.client.url)")
+    @Value("${application.client.url}")
     private  String clientURL;
 
-    @Value("^$(application.client.url)")
+    @Value("${application.client.feature.get}")
     private  String creationClient;
 
     public Facture createNewFacture(UUID id_client, String libelle_frais, double montant, Date date){
@@ -81,16 +81,13 @@ public class FactureService {
     public void envoiCourrierFacture(Facture facture){
 
         System.out.println("Hello Facture");
-        System.out.println(clientURL+creationClient+String.valueOf(facture.getId_client()));
 
         final RestTemplate restTemplate = new RestTemplate();
 
-        String ClientURL = "http://cnam-nfe107.k8s.grobert.fr/client/"+String.valueOf(facture.getId_client());
-        System.out.println(ClientURL);
+        String clientURLFull = clientURL+creationClient+String.valueOf(facture.getId_client());
 
         //http://cnam-nfe107.k8s.grobert.fr/client/get/
-        //final ResponseClient client = restTemplate.getForObject(clientURL+creationClient+String.valueOf(facture.getId_client()),ResponseClient.class);
-        ResponseClient client = restTemplate.getForObject("http://cnam-nfe107.k8s.grobert.fr/client/"+String.valueOf(facture.getId_client()),ResponseClient.class);
+        ResponseClient client = restTemplate.getForObject(clientURLFull,ResponseClient.class);
 
         String firstName = client.getFirstName();
         String lastName = client.getLastName();
