@@ -32,3 +32,9 @@ application:
     url: http://172.154.21.25:8085
     feature:
       create: /courrier/create
+      get: /courrier/get
+
+  client:
+    url: http://cnam-nfe107.k8s.grobert.fr
+    feature:
+      get: /client/
