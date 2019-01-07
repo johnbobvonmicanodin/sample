@@ -4,11 +4,14 @@ import org.cnam.sample.domain.Facture;
 import org.cnam.sample.dto.NewFactureDto;
 import org.cnam.sample.dto.FactureDto;
 import org.cnam.sample.dto.ResponseNewFactureDto;
+import org.cnam.sample.model.FactureModel;
 import org.cnam.sample.service.FactureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -48,9 +51,19 @@ public class FactureController {
 
     @GetMapping("/getforclient/{id}")
     @ResponseBody
-    public FactureDto getFactureForClient (@PathVariable UUID id){
+    public List<FactureDto> getFactureForClient (@PathVariable UUID id) {
 
-        return new FactureDto();
+        List<FactureModel> listefacture = factureService.getAllForUUID(id);
+
+        List<FactureDto> response = new ArrayList<FactureDto>();
+
+        for (FactureModel f: listefacture){
+            response.add(new FactureDto(f));
+        }
+
+        System.out.println(response.get(0).id_client);
+
+        return response;
     }
 
 }

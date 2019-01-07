@@ -1,5 +1,6 @@
 package org.cnam.sample.dto;
 import org.cnam.sample.domain.Facture;
+import org.cnam.sample.model.FactureModel;
 
 import java.sql.Date;
 import java.util.UUID;
@@ -32,6 +33,14 @@ public class FactureDto {
     public FactureDto(Facture facture){
         this.id = facture.getId();
         this.id_client = facture.getId_client();
+        this.date = facture.getDate();
+        this.libelle_frais = facture.getLibelle_frais();
+        this.montant = facture.getMontant();
+    }
+
+    public FactureDto(FactureModel facture){
+        this.id = facture.getId();
+        this.id_client = facture.getIdClient();
         this.date = facture.getDate();
         this.libelle_frais = facture.getLibelle_frais();
         this.montant = facture.getMontant();

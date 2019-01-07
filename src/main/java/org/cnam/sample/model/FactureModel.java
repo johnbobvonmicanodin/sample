@@ -14,8 +14,8 @@ public class FactureModel {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "id_client")
-    private UUID id_client;
+    @Column(name = "idClient")
+    private UUID idClient;
 
     @Column(name = "libelle_frais")
     private String libelle_frais;
@@ -30,16 +30,16 @@ public class FactureModel {
 
     }
 
-    public FactureModel(UUID id_client, String libelle_frais, double montant, Date date){
-        this.id_client = id_client;
+    public FactureModel(UUID idClient, String libelle_frais, double montant, Date date){
+        this.idClient = idClient;
         this.libelle_frais = libelle_frais;
         this.montant = montant;
         this.date = date;
     }
 
-    public FactureModel(long id, UUID id_client, String libelle_frais, double montant, Date date){
+    public FactureModel(long id, UUID idClient, String libelle_frais, double montant, Date date){
         this.id = id;
-        this.id_client = id_client;
+        this.idClient = idClient;
         this.libelle_frais = libelle_frais;
         this.montant = montant;
         this.date = date;
@@ -53,8 +53,8 @@ public class FactureModel {
         this.id = id;
     }
 
-    public UUID getId_client() {
-        return id_client;
+    public UUID getIdClient() {
+        return idClient;
     }
 
     public String getLibelle_frais() {

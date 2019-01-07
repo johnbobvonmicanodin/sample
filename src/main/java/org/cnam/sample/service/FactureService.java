@@ -1,17 +1,15 @@
 package org.cnam.sample.service;
 
 import org.cnam.sample.domain.Facture;
-import org.cnam.sample.dto.FactureDto;
-import org.cnam.sample.dto.NewFactureDto;
-import org.cnam.sample.dto.ResponseClient;
+import org.cnam.sample.dto.*;
 import org.cnam.sample.model.FactureModel;
 import org.cnam.sample.repository.FactureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.rmi.server.UID;
 import java.sql.Date;
 import java.util.*;
 
@@ -28,6 +26,10 @@ public class FactureService {
     @Value("${application.courrier.feature.create}")
     private String creationCourrier;
 
+    //envoyer courrier
+    @Value("${application.courrier.feature.create}")
+    private String sendMail;
+
     @Value("${application.client.url}")
     private  String clientURL;
 
@@ -39,11 +41,11 @@ public class FactureService {
         FactureModel factureModel = new FactureModel(id_client, libelle_frais, montant, date);
         FactureModel factureModelSaved = factureRepository.save(factureModel);
 
-        envoiCourrierFacture(new Facture(factureModelSaved.getId(), factureModelSaved.getId_client(),
+        /*envoiCourrierFacture(new Facture(factureModelSaved.getId(), factureModelSaved.getIdClient(),
                 factureModelSaved.getLibelle_frais(), factureModelSaved.getMontant(),
-                factureModelSaved.getDate()));
+                factureModelSaved.getDate()));*/
 
-        return new Facture(factureModelSaved.getId(), factureModelSaved.getId_client(),
+        return new Facture(factureModelSaved.getId(), factureModelSaved.getIdClient(),
             factureModelSaved.getLibelle_frais(), factureModelSaved.getMontant(),
             factureModelSaved.getDate());
 }
@@ -52,14 +54,15 @@ public class FactureService {
 
         FactureModel factureModelSaved = factureRepository.getOne(id);
 
-        return new Facture(factureModelSaved.getId(), factureModelSaved.getId_client(),
+        return new Facture(factureModelSaved.getId(), factureModelSaved.getIdClient(),
                 factureModelSaved.getLibelle_frais(), factureModelSaved.getMontant(),
                 factureModelSaved.getDate());
     }
 
 
-    public ArrayList<Facture> getAllForUUID(UUID id_client){
-        ArrayList<Facture> listeFacture = new ArrayList<Facture>();
+    public List<FactureModel> getAllForUUID(UUID idClient){
+
+        List<FactureModel> listeFacture = factureRepository.findByIdClient(idClient);
 
         return listeFacture;
     }
@@ -89,25 +92,36 @@ public class FactureService {
         //http://cnam-nfe107.k8s.grobert.fr/client/get/
         ResponseClient client = restTemplate.getForObject(clientURLFull,ResponseClient.class);
 
+        String service = "Facture";
         String firstName = client.getFirstName();
         String lastName = client.getLastName();
         String mail = client.getMail();
+        String sujet = "Facture : "+facture.getLibelle_frais();
+        String body = "Bonjour Monsieur/Madame{prenom} {nom}\n Veuillez trouver ci joint le montant et le sujet de votre facture :\n"
+                    + "{libelle} : {montant} €.\n Cordialement\n Le Service Facturation";
 
         System.out.println(firstName+' '+lastName+' '+mail);
 
-        String serviceName = "Facture";
+        String serviceName = "Facturation";
         HashMap<String, String> values = new HashMap<String, String>();
 
-        values.put("Libelle",facture.getLibelle_frais());
-        values.put("Montant de la facture",String.valueOf(facture.getMontant()));
+        values.put("libelle",facture.getLibelle_frais());
+        values.put("montant",String.valueOf(facture.getMontant()));
+        values.put("prenom", firstName);
+        values.put("nom", lastName);
 
-        String recipient = "";
+        String recipient = mail;
 
-        //final String result1 = restTemplate.getForObject( url: courrierApplicationURL+ , String.class);
+        EmailTemplateDto emailTemplate = new EmailTemplateDto(sujet, body);
+        Email emailDto = new Email(recipient, values);
+        SendEmailDto sendEmail = new SendEmailDto(emailDto, service);
 
-        //A voir les params courrier
-        //final SampleRequest sampleRequest = new SampleRequest();
+        HttpEntity<EmailTemplateDto> requestTemplate = new HttpEntity<EmailTemplateDto>(emailTemplate);
+        EmailTemplateDto retourTemplate = restTemplate.postForObject(courrierApplicationURL+creationCourrier, requestTemplate, EmailTemplateDto.class);
 
-        //final String result2 = restTemplate.postForObject(courrierApplicationURL+creationCourrier, sampleRequest, String.class);
+
+        HttpEntity<SendEmailDto> requestSendEmail = new HttpEntity<SendEmailDto>(sendEmail);
+        SendEmailDto retourSend = restTemplate.postForObject(courrierApplicationURL+sendMail, sendEmail, SendEmailDto.class);
+
     }
 }
