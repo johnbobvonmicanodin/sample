@@ -41,9 +41,13 @@ public class FactureService {
         FactureModel factureModel = new FactureModel(id_client, libelle_frais, montant, date);
         FactureModel factureModelSaved = factureRepository.save(factureModel);
 
-        /*envoiCourrierFacture(new Facture(factureModelSaved.getId(), factureModelSaved.getIdClient(),
-                factureModelSaved.getLibelle_frais(), factureModelSaved.getMontant(),
-                factureModelSaved.getDate()));*/
+        try{
+            envoiCourrierFacture(new Facture(factureModelSaved.getId(), factureModelSaved.getIdClient(),
+                    factureModelSaved.getLibelle_frais(), factureModelSaved.getMontant(),
+                    factureModelSaved.getDate()));
+        } catch (Exception e) {
+            System.out.println("error envois courrier");
+        }
 
         return new Facture(factureModelSaved.getId(), factureModelSaved.getIdClient(),
             factureModelSaved.getLibelle_frais(), factureModelSaved.getMontant(),
