@@ -7,6 +7,10 @@ import org.cnam.sample.repository.FactureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,7 +31,7 @@ public class FactureService {
     private String creationCourrier;
 
     //envoyer courrier
-    @Value("${application.courrier.feature.create}")
+    @Value("${application.courrier.feature.send}")
     private String sendMail;
 
     @Value("${application.client.url}")
@@ -93,6 +97,8 @@ public class FactureService {
 
         String clientURLFull = clientURL+creationClient+String.valueOf(facture.getId_client());
 
+        System.out.println(clientURLFull);
+
         //http://cnam-nfe107.k8s.grobert.fr/client/get/
         ResponseClient client = restTemplate.getForObject(clientURLFull,ResponseClient.class);
 
@@ -100,32 +106,44 @@ public class FactureService {
         String firstName = client.getFirstName();
         String lastName = client.getLastName();
         String mail = client.getMail();
+
+        //String firstName = "test";
+        //String lastName = "test";
+        //String mail = "mailtest";
+
         String sujet = "Facture : "+facture.getLibelle_frais();
         String body = "Bonjour Monsieur/Madame{prenom} {nom}\n Veuillez trouver ci joint le montant et le sujet de votre facture :\n"
                     + "{libelle} : {montant} €.\n Cordialement\n Le Service Facturation";
 
         System.out.println(firstName+' '+lastName+' '+mail);
 
-        String serviceName = "Facturation";
         HashMap<String, String> values = new HashMap<String, String>();
 
-        values.put("libelle",facture.getLibelle_frais());
-        values.put("montant",String.valueOf(facture.getMontant()));
-        values.put("prenom", firstName);
-        values.put("nom", lastName);
+        values.put("{libelle}",facture.getLibelle_frais());
+        values.put("{montant}",String.valueOf(facture.getMontant()));
+        values.put("{prenom}", firstName);
+        values.put("{nom}", lastName);
 
         String recipient = mail;
 
-        EmailTemplateDto emailTemplate = new EmailTemplateDto(sujet, body);
+        EmailTemplateDto emailTemplate = new EmailTemplateDto(sujet, body, service);
         Email emailDto = new Email(recipient, values);
         SendEmailDto sendEmail = new SendEmailDto(emailDto, service);
 
-        HttpEntity<EmailTemplateDto> requestTemplate = new HttpEntity<EmailTemplateDto>(emailTemplate);
-        EmailTemplateDto retourTemplate = restTemplate.postForObject(courrierApplicationURL+creationCourrier, requestTemplate, EmailTemplateDto.class);
+        System.out.println(courrierApplicationURL+sendMail);
 
+        //HttpEntity<EmailTemplateDto> requestTemplate = new HttpEntity<EmailTemplateDto>(emailTemplate);
+        //EmailTemplateDto retourTemplate = restTemplate.postForObject(courrierApplicationURL+creationCourrier, emailTemplate, EmailTemplateDto.class);
 
-        HttpEntity<SendEmailDto> requestSendEmail = new HttpEntity<SendEmailDto>(sendEmail);
         SendEmailDto retourSend = restTemplate.postForObject(courrierApplicationURL+sendMail, sendEmail, SendEmailDto.class);
 
+        /*FactureDto testPost = new FactureDto();
+        testPost.id_client = UUID.fromString("ee970f8f-905c-48f1-bd1b-8a7d0edc27f7");
+        testPost.montant = 10.58;
+        testPost.libelle_frais = "TestLibelleFrais";
+
+        FactureDto sendFacture = restTemplate.postForObject("http://localhost:8085/facture/create", testPost, FactureDto.class);*/
+
+        System.out.println("envoyé");
     }
 }

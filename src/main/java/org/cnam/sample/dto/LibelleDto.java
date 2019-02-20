@@ -19,8 +19,8 @@ public class LibelleDto {
 
     }
 
-    public LibelleDto(long id_libelle, String libelle_frais, double montant_fixe, double montant_pourcentage){
-        this.id_libelle = id_libelle;
+    public LibelleDto(String libelle_frais, double montant_fixe, double montant_pourcentage){
+
         this.libelle_frais = libelle_frais;
         this.montant_fixe = montant_fixe;
         this.montant_pourcentage = montant_pourcentage;

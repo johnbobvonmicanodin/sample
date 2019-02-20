@@ -29,7 +29,7 @@ spring:
 
 application:
   courrier:
-    url: http://172.154.21.25:8085
+    url: http://192.168.43.220:8085
     feature:
       create: /mailing/template
       send: /mailing/send
