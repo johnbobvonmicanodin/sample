@@ -20,4 +20,20 @@ public class Libelle {
         this.montant_fixe = montant_fixe;
         this.montant_pourcentage = montant_pourcentage;
     }
+
+    public Long getId_libelle() {
+        return id_libelle;
+    }
+
+    public final String getLibelle_frais() {
+        return libelle_frais;
+    }
+
+    public double getMontant_fixe() {
+        return montant_fixe;
+    }
+
+    public double getMontant_pourcentage() {
+        return montant_pourcentage;
+    }
 }

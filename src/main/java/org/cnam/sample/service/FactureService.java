@@ -50,7 +50,7 @@ public class FactureService {
                     factureModelSaved.getLibelle_frais(), factureModelSaved.getMontant(),
                     factureModelSaved.getDate()));
         } catch (Exception e) {
-            System.out.println("error envois courrier");
+            System.out.println("error envoi courrier");
         }
 
         return new Facture(factureModelSaved.getId(), factureModelSaved.getIdClient(),
